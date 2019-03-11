@@ -1,0 +1,35 @@
+# -*- coding: utf-8 -*-
+import os
+
+
+def get_file_list(floder):
+    count = 0
+    file_str = []
+
+    file_list = os.listdir(floder)
+    for l in file_list:
+        if os.path.isfile(floder + '/' + l):
+            file_str.append(floder + '/' + l)
+    print count
+    return file_str
+
+
+def write_txt(file_str, txt_path):
+    with open(txt_path, 'w') as f:
+        for i in range(len(file_str)):
+            if i % 10 == 0:
+                for j in range(len(file_str)):
+                    if j % 10 == 0 and j > i:
+                        str = '{:s} {:s} {:d}\n'.format(file_str[i], file_str[j], 0)
+                        print str
+                        f.write(str)
+
+                dif_str = '{:s} {:s} {:d}\n'.format(file_str[i], file_str[i + 1], 1)
+                f.write(dif_str)
+                dif_str = '{:s} {:s} {:d}\n'.format(file_str[i - 2], file_str[i - 1], 1)
+                f.write(dif_str)
+
+
+if __name__ == "__main__":
+    file_list = get_file_list('H:/test/dumpout/blue/blue')
+    write_txt(file_list, 'train.txt')
